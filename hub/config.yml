@@ -1,0 +1,70 @@
+# delelopment
+system:
+  # 设定模式(debug/release/test,正式版改为release)
+  mode: debug
+  # url前缀
+  url-path-prefix: api
+  # 程序监听端口
+  port: 8088
+  # 是否初始化数据(没有初始数据时使用, 已发布正式版改为false)
+  init-data: true
+  # rsa公钥文件路径(config.yml相对路径, 也可以填绝对路径)
+  rsa-public-key: go-web-mini-pub.pem
+  # rsa私钥文件路径(config.yml相对路径, 也可以填绝对路径)
+  rsa-private-key: go-web-mini-priv.pem
+
+logs:
+  # 日志等级(-1:Debug, 0:Info, 1:Warn, 2:Error, 3:DPanic, 4:Panic, 5:Fatal, -1<=level<=5, 参照zap.level源码)
+  level: -1
+  # 日志路径
+  path: logs
+  # 文件最大大小, M
+  max-size: 50
+  # 备份数
+  max-backups: 100
+  # 存放时间, 天
+  max-age: 30
+  # 是否压缩
+  compress: false
+
+database:
+  type: postgres
+  gorm:
+    skip_err_record_not_found: true
+    table_prefix: hub
+  sqlite:
+    path: ./db.sqlite
+    write_ahead_log: true
+  postgres:
+    host: localhost
+    port: 5432
+    name: headscale
+    user: headscale
+    pass: headscale
+    max_open_conns: 10
+    max_idle_conns: 10
+    conn_max_idle_time_secs: 3600
+    ssl: false
+
+# casbin配置
+casbin:
+  # 模型配置文件, config.yml相对路径
+  model-path: 'rbac_model.conf'
+
+# jwt配置
+jwt:
+  # jwt标识
+  realm: test jwt
+  # 服务端密钥
+  key: secret key
+  # token过期时间, 小时
+  timeout: 12
+  # 刷新token最大过期时间, 小时
+  max-refresh: 12
+
+# 令牌桶限流配置
+rate-limit:
+  # 填充一个令牌需要的时间间隔,毫秒
+  fill-interval: 50
+  # 桶容量
+  capacity: 200

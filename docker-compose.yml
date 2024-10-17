@@ -1,0 +1,38 @@
+services:
+  headscale:
+    image: headscale/headscale:0.23.0
+    container_name: headscale
+    restart: always
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+      - "127.0.0.1:50443:50443"
+    volumes:
+      - ./headscale/config:/etc/headscale
+      - ./headscale/data:/var/lib/headscale
+    command: [ "serve" ]
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - postgres
+
+  # sqlite-web:
+  #   image: coleifer/sqlite-web
+  #   container_name: sqlite-web
+  #   ports:
+  #     - "8090:8080"
+  #   volumes:
+  #     - ./headscale/data:/data
+  #   environment:
+  #     - SQLITE_DATABASE=db.sqlite
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: headscale
+      POSTGRES_PASSWORD: headscale
+      POSTGRES_DB: headscale
+
