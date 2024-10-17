@@ -3,10 +3,10 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"go-web-mini/common"
-	"go-web-mini/repository"
-	"go-web-mini/response"
-	"go-web-mini/vo"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/repository"
+	"github.com/suixinio/headscale-hub/response"
+	"github.com/suixinio/headscale-hub/vo"
 )
 
 type IOperationLogController interface {

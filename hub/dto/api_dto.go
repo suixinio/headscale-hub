@@ -1,6 +1,6 @@
 package dto
 
-import "go-web-mini/model"
+import "github.com/suixinio/headscale-hub/model"
 
 type ApiTreeDto struct {
 	ID       int          `json:"ID"`

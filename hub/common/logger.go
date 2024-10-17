@@ -2,7 +2,7 @@ package common
 
 import (
 	"fmt"
-	"go-web-mini/config"
+	"github.com/suixinio/headscale-hub/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -11,7 +11,7 @@ import (
 )
 
 // 全局日志变量
-//var Log *zap.Logger
+// var Log *zap.Logger
 var Log *zap.SugaredLogger
 
 /**

@@ -1,7 +1,7 @@
-package headscale_router
+package hs_router
 
 import (
-	"go-web-mini/middleware"
+	"github.com/suixinio/headscale-hub/middleware"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"

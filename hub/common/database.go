@@ -2,8 +2,8 @@ package common
 
 import (
 	"fmt"
-	"go-web-mini/config"
-	"go-web-mini/model"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/model"
 	"strconv"
 
 	"gorm.io/driver/postgres"

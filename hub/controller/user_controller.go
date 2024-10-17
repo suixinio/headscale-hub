@@ -3,15 +3,15 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/dto"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/repository"
+	"github.com/suixinio/headscale-hub/response"
+	"github.com/suixinio/headscale-hub/util"
+	"github.com/suixinio/headscale-hub/vo"
 	"github.com/thoas/go-funk"
-	"go-web-mini/common"
-	"go-web-mini/config"
-	"go-web-mini/dto"
-	"go-web-mini/model"
-	"go-web-mini/repository"
-	"go-web-mini/response"
-	"go-web-mini/util"
-	"go-web-mini/vo"
 	"strconv"
 )
 

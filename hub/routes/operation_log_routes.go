@@ -3,8 +3,8 @@ package routes
 import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"go-web-mini/controller"
-	"go-web-mini/middleware"
+	"github.com/suixinio/headscale-hub/controller"
+	"github.com/suixinio/headscale-hub/middleware"
 )
 
 func InitOperationLogRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) gin.IRoutes {

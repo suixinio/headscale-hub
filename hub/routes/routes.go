@@ -2,10 +2,10 @@ package routes
 
 import (
 	"fmt"
-	"go-web-mini/common"
-	"go-web-mini/config"
-	"go-web-mini/middleware"
-	"go-web-mini/routes/headscale_router"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/middleware"
+	"github.com/suixinio/headscale-hub/routes/hs_router"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -53,7 +53,7 @@ func InitRoutes() *gin.Engine {
 	InitApiRoutes(apiGroup, authMiddleware)          // 注册接口路由, jwt认证中间件,casbin鉴权中间件
 	InitOperationLogRoutes(apiGroup, authMiddleware) // 注册操作日志路由, jwt认证中间件,casbin鉴权中间件
 
-	headscale_router.InitRoutes(apiGroup, authMiddleware)
+	hs_router.InitRoutes(apiGroup, authMiddleware)
 	common.Log.Info("初始化路由完成！")
 	return r
 }

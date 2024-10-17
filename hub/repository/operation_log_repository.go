@@ -2,9 +2,9 @@ package repository
 
 import (
 	"fmt"
-	"go-web-mini/common"
-	"go-web-mini/model"
-	"go-web-mini/vo"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/vo"
 	"strings"
 )
 
@@ -65,8 +65,8 @@ func (o OperationLogRepository) BatchDeleteOperationLogByIds(ids []uint) error {
 	return err
 }
 
-//var Logs []model.OperationLog //全局变量多个线程需要加锁，所以每个线程自己维护一个
-//处理OperationLogChan将日志记录到数据库
+// var Logs []model.OperationLog //全局变量多个线程需要加锁，所以每个线程自己维护一个
+// 处理OperationLogChan将日志记录到数据库
 func (o OperationLogRepository) SaveOperationLogChannel(olc <-chan *model.OperationLog) {
 	// 只会在线程开启的时候执行一次
 	Logs := make([]model.OperationLog, 0)

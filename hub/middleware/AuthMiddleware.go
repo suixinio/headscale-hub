@@ -2,14 +2,14 @@ package middleware
 
 import (
 	"fmt"
-	"go-web-mini/common"
-	"go-web-mini/config"
-	"go-web-mini/model"
-	"go-web-mini/repository"
-	hsrepository "go-web-mini/repository/hs_repository"
-	"go-web-mini/response"
-	"go-web-mini/util"
-	"go-web-mini/vo"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/repository"
+	hsrepository "github.com/suixinio/headscale-hub/repository/hs_repository"
+	"github.com/suixinio/headscale-hub/response"
+	"github.com/suixinio/headscale-hub/util"
+	"github.com/suixinio/headscale-hub/vo"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"

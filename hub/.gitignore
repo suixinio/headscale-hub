@@ -17,4 +17,4 @@ logs
 # vendor/
 
 *.sqlite
-go-web-mini
+headscale-hub

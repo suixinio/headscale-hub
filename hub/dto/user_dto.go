@@ -1,6 +1,6 @@
 package dto
 
-import "go-web-mini/model"
+import "github.com/suixinio/headscale-hub/model"
 
 // 返回给前端的当前用户信息
 type UserInfoDto struct {

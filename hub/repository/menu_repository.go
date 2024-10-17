@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/model"
 	"github.com/thoas/go-funk"
-	"go-web-mini/common"
-	"go-web-mini/model"
 )
 
 type IMenuRepository interface {

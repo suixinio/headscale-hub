@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"go-web-mini/util"
+	"github.com/suixinio/headscale-hub/util"
 	"os"
 
 	"github.com/fsnotify/fsnotify"

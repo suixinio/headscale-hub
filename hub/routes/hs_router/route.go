@@ -1,4 +1,4 @@
-package headscale_router
+package hs_router
 
 import (
 	"github.com/gin-gonic/gin"

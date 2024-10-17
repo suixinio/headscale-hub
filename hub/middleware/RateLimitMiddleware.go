@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/juju/ratelimit"
-	"go-web-mini/response"
+	"github.com/suixinio/headscale-hub/response"
 	"time"
 )
 

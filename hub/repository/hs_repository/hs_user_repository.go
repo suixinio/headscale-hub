@@ -2,8 +2,8 @@ package hsrepository
 
 import (
 	"errors"
-	"go-web-mini/common"
-	hsmodel "go-web-mini/model/hs_model"
+	"github.com/suixinio/headscale-hub/common"
+	hsmodel "github.com/suixinio/headscale-hub/model/hs_model"
 	"time"
 
 	"github.com/patrickmn/go-cache"

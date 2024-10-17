@@ -1,4 +1,4 @@
-module go-web-mini
+module github.com/suixinio/headscale-hub
 
 go 1.22.0
 

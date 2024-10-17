@@ -2,10 +2,10 @@ package common
 
 import (
 	"errors"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/util"
 	"github.com/thoas/go-funk"
-	"go-web-mini/config"
-	"go-web-mini/model"
-	"go-web-mini/util"
 	"gorm.io/gorm"
 )
 

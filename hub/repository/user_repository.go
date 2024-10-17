@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/patrickmn/go-cache"
+	"github.com/suixinio/headscale-hub/common"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/util"
+	"github.com/suixinio/headscale-hub/vo"
 	"github.com/thoas/go-funk"
-	"go-web-mini/common"
-	"go-web-mini/model"
-	"go-web-mini/util"
-	"go-web-mini/vo"
 	"strings"
 	"time"
 )
@@ -303,7 +303,7 @@ func (ur UserRepository) UpdateUserInfoCacheByRoleId(roleId uint) error {
 	return err
 }
 
-//清理所有用户信息缓存
+// 清理所有用户信息缓存
 func (ur UserRepository) ClearUserInfoCache() {
 	userInfoCache.Flush()
 }

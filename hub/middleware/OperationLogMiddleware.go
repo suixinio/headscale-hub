@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-web-mini/config"
-	"go-web-mini/model"
-	"go-web-mini/repository"
+	"github.com/suixinio/headscale-hub/config"
+	"github.com/suixinio/headscale-hub/model"
+	"github.com/suixinio/headscale-hub/repository"
 	"strings"
 	"time"
 )
