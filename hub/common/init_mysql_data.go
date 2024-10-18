@@ -66,6 +66,7 @@ func InitData() {
 	newMenus := make([]model.Menu, 0)
 	var uint0 uint = 0
 	var uint1 uint = 1
+	var u8 uint = 8
 	componentStr := "component"
 	systemUserStr := "/system/user"
 	userStr := "user"
@@ -160,6 +161,66 @@ func InitData() {
 			Component: "/log/operation-log/index",
 			Sort:      21,
 			ParentId:  &uint6,
+			Roles:     roles[:2],
+			Creator:   "系统",
+		},
+		{
+			Model:     gorm.Model{ID: 8},
+			Name:      "Headscale",
+			Title:     "Headscale",
+			Icon:      &documentationStr,
+			Path:      "/headscale",
+			Component: "Layout",
+			Sort:      22,
+			ParentId:  &uint0,
+			Roles:     roles[:2],
+			Creator:   "系统",
+		},
+		{
+			Model:     gorm.Model{ID: 9},
+			Name:      "node",
+			Title:     "节点",
+			Icon:      &documentationStr,
+			Path:      "node",
+			Component: "/headscale/node",
+			Sort:      23,
+			ParentId:  &u8,
+			Roles:     roles[:2],
+			Creator:   "系统",
+		},
+		{
+			Model:     gorm.Model{ID: 10},
+			Name:      "pre-auth-key",
+			Title:     "密钥",
+			Icon:      &documentationStr,
+			Path:      "pre-auth-key",
+			Component: "/headscale/pre-auth-key",
+			Sort:      24,
+			ParentId:  &u8,
+			Roles:     roles[:2],
+			Creator:   "系统",
+		},
+		{
+			Model:     gorm.Model{ID: 11},
+			Name:      "route",
+			Title:     "路由",
+			Icon:      &documentationStr,
+			Path:      "route",
+			Component: "/headscale/route",
+			Sort:      25,
+			ParentId:  &u8,
+			Roles:     roles[:2],
+			Creator:   "系统",
+		},
+		{
+			Model:     gorm.Model{ID: 12},
+			Name:      "policy",
+			Title:     "ACLs",
+			Icon:      &documentationStr,
+			Path:      "policy",
+			Component: "/headscale/policy",
+			Sort:      26,
+			ParentId:  &u8,
 			Roles:     roles[:2],
 			Creator:   "系统",
 		},
@@ -461,6 +522,13 @@ func InitData() {
 			Path:     "/log/operation/delete/batch",
 			Category: "log",
 			Desc:     "批量删除操作日志",
+			Creator:  "系统",
+		},
+		{
+			Method:   "GET",
+			Path:     "/headscale/policy/acl",
+			Category: "headscale",
+			Desc:     "获取ACLs",
 			Creator:  "系统",
 		},
 	}

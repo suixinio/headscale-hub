@@ -1,7 +1,6 @@
 package hs_controller
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/suixinio/headscale-hub/repository/hs_repository"
 	"github.com/suixinio/headscale-hub/response"
@@ -29,12 +28,7 @@ func (pc PolicyController) GetAcl(c *gin.Context) {
 		response.Fail(c, nil, err.Error())
 		return
 	}
-	data, err := json.Marshal(policyM.Data)
-	if err != nil {
-		response.Fail(c, nil, err.Error())
-		return
-	}
-	response.Success(c, gin.H{"data": string(data)}, "success")
+	response.Success(c, gin.H{"data": policyM.Data}, "success")
 }
 
 // 设置acl
