@@ -1,4 +1,4 @@
-package hsmodel
+package hs_model
 
 import "gorm.io/gorm"
 
@@ -14,4 +14,3 @@ type HsUser struct {
 func (hs *HsUser) TableName() string {
 	return "users"
 }
-

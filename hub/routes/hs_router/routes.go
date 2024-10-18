@@ -1,10 +1,9 @@
 package hs_router
 
 import (
-	"github.com/suixinio/headscale-hub/middleware"
-
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	"github.com/suixinio/headscale-hub/middleware"
 )
 
 func InitRoutes(r *gin.RouterGroup, authMiddleware *jwt.GinJWTMiddleware) gin.IRoutes {

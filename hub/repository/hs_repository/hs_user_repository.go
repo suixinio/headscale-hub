@@ -1,4 +1,4 @@
-package hsrepository
+package hs_repository
 
 import (
 	"errors"

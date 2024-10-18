@@ -278,10 +278,11 @@ export default {
           this.dialogFormData.hidden = this.dialogFormData.hidden === '是' ? 1 : 2
           this.dialogFormData.noCache = this.dialogFormData.noCache === '是' ? 2 : 1
 
-          const dialogFormDataCopy = { ...this.dialogFormData, parentId: this.treeselectValue }
+          const dialogFormDataCopy = { ...this.dialogFormData, parentId: this.dialogFormData.parentId }
           let msg = ''
           try {
             if (this.dialogType === 'create') {
+              dialogFormDataCopy.parentId = this.treeselectValue
               const { message } = await createMenu(dialogFormDataCopy)
               msg = message
             } else {

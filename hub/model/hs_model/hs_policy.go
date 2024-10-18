@@ -1,4 +1,4 @@
-package hsmodel
+package hs_model
 
 import (
 	"errors"
@@ -15,4 +15,8 @@ var (
 type Policy struct {
 	gorm.Model
 	Data string
+}
+
+func (hs *Policy) TableName() string {
+	return "policies"
 }

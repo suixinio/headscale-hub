@@ -1,4 +1,4 @@
-package hsrepository
+package hs_repository
 
 import (
 	"errors"
@@ -9,14 +9,15 @@ import (
 )
 
 type IHsPolicyRepository interface {
+	GetPolicy() (*hsmodel.Policy, error)
 }
 
 type HsPolicyRepository struct {
 }
 
 // HsPolicyRepository构造函数
-func NewPolicyRepository() HsPolicyRepository {
-	return HsPolicyRepository{}
+func NewPolicyRepository() *HsPolicyRepository {
+	return &HsPolicyRepository{}
 }
 
 // GetPolicy returns the latest policy in the database.
