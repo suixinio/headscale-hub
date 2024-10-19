@@ -13,7 +13,7 @@ type IUserRepository interface {
 type UserRepository struct {
 }
 
-// UserRepository构造函数
+// NewUserRepository 构造函数
 func NewUserRepository() IUserRepository {
 	return UserRepository{}
 }

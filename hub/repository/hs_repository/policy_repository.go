@@ -18,7 +18,7 @@ type IPolicyRepository interface {
 type PolicyRepository struct {
 }
 
-// HsPolicyRepository构造函数
+// NewPolicyRepository 构造函数
 func NewPolicyRepository() IPolicyRepository {
 	return &PolicyRepository{}
 }
@@ -43,7 +43,7 @@ func (hs *PolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
 	return &p, nil
 }
 
-// GetPolicy returns the latest policy in the database.
+// SetPolicy Updates the ACL Policy.
 func (hs *PolicyRepository) SetPolicy(c *gin.Context, content string) error {
 	_, err := common.HeadscaleGRPC.SetPolicy(c, &pb.SetPolicyRequest{Policy: content})
 	if err != nil {

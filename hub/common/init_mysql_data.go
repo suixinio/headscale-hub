@@ -538,6 +538,13 @@ func InitData() {
 			Desc:     "设置ACLs",
 			Creator:  "系统",
 		},
+		{
+			Method:   "GET",
+			Path:     "/headscale/pre_auth_key/list",
+			Category: "headscale",
+			Desc:     "获取密钥列表",
+			Creator:  "系统",
+		},
 	}
 	newApi := make([]model.Api, 0)
 	newRoleCasbin := make([]model.RoleCasbin, 0)
