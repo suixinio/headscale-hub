@@ -25,6 +25,7 @@ type config struct {
 	Casbin    *CasbinConfig    `mapstructure:"casbin" json:"casbin"`
 	Jwt       *JwtConfig       `mapstructure:"jwt" json:"jwt"`
 	RateLimit *RateLimitConfig `mapstructure:"rate-limit" json:"rateLimit"`
+	Headscale *HeadscaleConfig `mapstructure:"headscale" json:"headscale"`
 }
 
 // 设置读取配置信息
@@ -136,4 +137,9 @@ type JwtConfig struct {
 type RateLimitConfig struct {
 	FillInterval int64 `mapstructure:"fill-interval" json:"fillInterval"`
 	Capacity     int64 `mapstructure:"capacity" json:"capacity"`
+}
+
+type HeadscaleConfig struct {
+	Host   string `mapstructure:"host" json:"host"`
+	ApiKey string `mapstructure:"api_key" json:"api_key"`
 }

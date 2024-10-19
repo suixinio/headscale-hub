@@ -6,3 +6,11 @@ export function getACL() {
     method: 'get'
   })
 }
+
+export function setACL(data) {
+  return request({
+    url: '/api/headscale/policy/acl',
+    method: 'post',
+    data
+  })
+}

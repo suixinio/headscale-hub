@@ -20,6 +20,9 @@ func main() {
 	// 加载配置文件到全局配置结构体
 	config.InitConfig()
 
+	// 加载 headscale grpc
+	common.InitHeadscaleGrpc()
+
 	// 初始化日志
 	common.InitLogger()
 
@@ -32,7 +35,7 @@ func main() {
 	// 初始化Validator数据校验
 	common.InitValidate()
 
-	// 初始化mysql数据
+	// 初始化数据
 	common.InitData()
 
 	// 操作日志中间件处理日志时没有将日志发送到rabbitmq或者kafka中, 而是发送到了channel中

@@ -137,7 +137,6 @@ func (ur UserRepository) GetCurrentUserMinRoleSort(c *gin.Context) (uint, model.
 
 // 获取单个用户
 func (ur UserRepository) GetUserById(id uint) (model.User, error) {
-	fmt.Println("GetUserById---")
 	var user model.User
 	err := common.DB.Where("id = ?", id).Preload("Roles").First(&user).Error
 	return user, err

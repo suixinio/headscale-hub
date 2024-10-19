@@ -2,6 +2,8 @@ package hs_repository
 
 import (
 	"errors"
+	"github.com/gin-gonic/gin"
+	pb "github.com/juanfont/headscale/gen/go/headscale/v1"
 	"github.com/suixinio/headscale-hub/common"
 	hsmodel "github.com/suixinio/headscale-hub/model/hs_model"
 
@@ -10,6 +12,7 @@ import (
 
 type IHsPolicyRepository interface {
 	GetPolicy() (*hsmodel.Policy, error)
+	SetPolicy(c *gin.Context, content string) error
 }
 
 type HsPolicyRepository struct {
@@ -38,4 +41,13 @@ func (hs *HsPolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
 	}
 
 	return &p, nil
+}
+
+// GetPolicy returns the latest policy in the database.
+func (hs *HsPolicyRepository) SetPolicy(c *gin.Context, content string) error {
+	_, err := common.HeadscaleGRPC.SetPolicy(c, &pb.SetPolicyRequest{Policy: content})
+	if err != nil {
+		return err
+	}
+	return nil
 }

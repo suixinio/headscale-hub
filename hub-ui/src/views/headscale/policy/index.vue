@@ -14,7 +14,7 @@
 
 <script>
 import YamlEditor from '@/components/YamlEditor/index.vue'
-import { getACL } from '@/api/headscale/acl'
+import { getACL, setACL } from '@/api/headscale/acl'
 
 export default {
   name: 'ACL',
@@ -45,13 +45,13 @@ export default {
       })
     },
     async postData() {
-      // const { code, message } = await postACL({ content: this.acl })
-      // if (code !== 200) {
-      //   this.$message.error(message)
-      //   return
-      // }
-      // this.$message.success(this.$t('console.acl.message.saveACLSuccess'))
-      // await this.getData()
+      const { code, message } = await setACL({ content: this.acl })
+      if (code !== 200) {
+        this.$message.error(message)
+        return
+      }
+      this.$message.success('保存成功')
+      await this.getData()
     },
     async getData() {
       const { code, data, message } = await getACL()

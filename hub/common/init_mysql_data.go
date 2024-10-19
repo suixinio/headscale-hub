@@ -531,6 +531,13 @@ func InitData() {
 			Desc:     "获取ACLs",
 			Creator:  "系统",
 		},
+		{
+			Method:   "POST",
+			Path:     "/headscale/policy/acl",
+			Category: "headscale",
+			Desc:     "设置ACLs",
+			Creator:  "系统",
+		},
 	}
 	newApi := make([]model.Api, 0)
 	newRoleCasbin := make([]model.RoleCasbin, 0)

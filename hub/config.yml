@@ -68,3 +68,8 @@ rate-limit:
   fill-interval: 50
   # 桶容量
   capacity: 200
+
+# Headscale 配置
+headscale:
+  host: 10.8.0.213:50443
+  api_key: K3foKI2NMg.QW6nkKXNidN240omL0zBQypsRKTgiuSacLy_vFQnl7E
