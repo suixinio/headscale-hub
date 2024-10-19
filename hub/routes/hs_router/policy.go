@@ -7,8 +7,8 @@ import (
 
 func InitPolicyRoutes(r *gin.RouterGroup) gin.IRoutes {
 	Group := r.Group("/policy")
-	policyController := hs_controller.NewPolicyController()
-	Group.GET("/acl", policyController.GetAcl)
-	Group.POST("/acl", policyController.SetAcl)
+	controller := hs_controller.NewPolicyController()
+	Group.GET("/get", controller.GetAcl)
+	Group.POST("/set", controller.SetAcl)
 	return r
 }

@@ -89,7 +89,7 @@ func login(c *gin.Context) (interface{}, error) {
 	}
 
 	// headscale
-	hsUserRepository := hsrepository.NewHsUserRepository()
+	hsUserRepository := hsrepository.NewUserRepository()
 	hsUser, err := hsUserRepository.GetUserByName(u.Username)
 	if err != nil {
 		return nil, err

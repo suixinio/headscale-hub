@@ -10,21 +10,21 @@ import (
 	"gorm.io/gorm"
 )
 
-type IHsPolicyRepository interface {
+type IPolicyRepository interface {
 	GetPolicy() (*hsmodel.Policy, error)
 	SetPolicy(c *gin.Context, content string) error
 }
 
-type HsPolicyRepository struct {
+type PolicyRepository struct {
 }
 
 // HsPolicyRepository构造函数
-func NewPolicyRepository() *HsPolicyRepository {
-	return &HsPolicyRepository{}
+func NewPolicyRepository() IPolicyRepository {
+	return &PolicyRepository{}
 }
 
 // GetPolicy returns the latest policy in the database.
-func (hs *HsPolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
+func (hs *PolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
 	var p hsmodel.Policy
 
 	// Query:
@@ -44,7 +44,7 @@ func (hs *HsPolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
 }
 
 // GetPolicy returns the latest policy in the database.
-func (hs *HsPolicyRepository) SetPolicy(c *gin.Context, content string) error {
+func (hs *PolicyRepository) SetPolicy(c *gin.Context, content string) error {
 	_, err := common.HeadscaleGRPC.SetPolicy(c, &pb.SetPolicyRequest{Policy: content})
 	if err != nil {
 		return err

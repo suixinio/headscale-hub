@@ -15,7 +15,7 @@ type IPolicyController interface {
 }
 
 type PolicyController struct {
-	PolicyRepository hs_repository.IHsPolicyRepository
+	PolicyRepository hs_repository.IPolicyRepository
 }
 
 func NewPolicyController() IPolicyController {
@@ -24,7 +24,7 @@ func NewPolicyController() IPolicyController {
 	return PolicyController
 }
 
-// 获取acl
+// GetAcl 获取acl
 func (pc PolicyController) GetAcl(c *gin.Context) {
 	policyM, err := pc.PolicyRepository.GetPolicy()
 	if err != nil {
@@ -34,7 +34,7 @@ func (pc PolicyController) GetAcl(c *gin.Context) {
 	response.Success(c, gin.H{"data": policyM.Data}, "success")
 }
 
-// 设置acl
+// SetAcl 设置acl
 func (pc PolicyController) SetAcl(c *gin.Context) {
 	var req vo.SetACLRequest
 	// 参数绑定

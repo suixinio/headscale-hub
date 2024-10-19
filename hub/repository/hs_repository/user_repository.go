@@ -6,19 +6,19 @@ import (
 	hsmodel "github.com/suixinio/headscale-hub/model/hs_model"
 )
 
-type IHsUserRepository interface {
+type IUserRepository interface {
 	GetUserByName(name string) (*hsmodel.HsUser, error)
 }
 
-type HsUserRepository struct {
+type UserRepository struct {
 }
 
 // UserRepository构造函数
-func NewHsUserRepository() HsUserRepository {
-	return HsUserRepository{}
+func NewUserRepository() IUserRepository {
+	return UserRepository{}
 }
 
-func (hs HsUserRepository) GetUserByName(name string) (*hsmodel.HsUser, error) {
+func (hs UserRepository) GetUserByName(name string) (*hsmodel.HsUser, error) {
 	var firstUser hsmodel.HsUser
 	err := common.DB.
 		Where("name = ?", name).
