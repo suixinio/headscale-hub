@@ -45,7 +45,7 @@ func (nc NodeController) List(c *gin.Context) {
 		user.Username = ""
 	}
 	nodes, err := nc.NodeRepository.ListNodes(user.Username)
-	if err != nil && err.Error() != "rpc error: code = Unknown desc = User not found" {
+	if err != nil {
 		response.Fail(c, nil, "Failed to get Nodes")
 		return
 	}
@@ -100,12 +100,12 @@ func (nc NodeController) Delete(c *gin.Context) {
 	}
 	role, user, err := nc.UserRepository.GetCurrentUserMinRoleSort(c)
 	if err != nil {
-		response.Fail(c, nil, "Delete to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	hsUser, err := nc.HsUserRepository.GetUserByName(user.Username)
 	if err != nil {
-		response.Fail(c, nil, "Delete to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	// 判断当前用户是否有权限
@@ -117,7 +117,7 @@ func (nc NodeController) Delete(c *gin.Context) {
 
 	err = nc.NodeRepository.DeleteNode(req.NodeId)
 	if err != nil {
-		response.Fail(c, nil, "Delete to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	response.Success(c, gin.H{}, "success")

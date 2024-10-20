@@ -39,8 +39,8 @@ func (pc PreAuthKeyController) List(c *gin.Context) {
 		return
 	}
 	keys, err := pc.PreAuthKeyRepository.ListPreAuthKeys(user.Username)
-	if err != nil && err.Error() != "rpc error: code = Unknown desc = User not found" {
-		response.Fail(c, nil, "Failed to get Nodes")
+	if err != nil {
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	response.Success(c, gin.H{"keys": keys}, "success")
@@ -62,14 +62,14 @@ func (pc PreAuthKeyController) Create(c *gin.Context) {
 	}
 	user, err := pc.UserRepository.GetCurrentUser(c)
 	if err != nil {
-		response.Fail(c, nil, "Register to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	req.User = user.Username
 	req.AclTags = []string{}
 	key, err := pc.PreAuthKeyRepository.CreatePreAuthKey(&req.CreatePreAuthKeyRequest)
 	if err != nil {
-		response.Fail(c, nil, "Failed to create key")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	response.Success(c, gin.H{"key": key}, "success")
@@ -91,13 +91,13 @@ func (pc PreAuthKeyController) Expire(c *gin.Context) {
 	}
 	user, err := pc.UserRepository.GetCurrentUser(c)
 	if err != nil {
-		response.Fail(c, nil, "Register to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	req.User = user.Username
 	_, err = pc.PreAuthKeyRepository.ExpirePreAuthKey(&req.ExpirePreAuthKeyRequest)
 	if err != nil {
-		response.Fail(c, nil, "Failed to expire key")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	response.Success(c, gin.H{}, "success")

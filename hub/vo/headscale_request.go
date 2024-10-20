@@ -21,3 +21,12 @@ type ExpirePreAuthKey struct {
 type DeleteNode struct {
 	pb.DeleteNodeRequest
 }
+
+type DeleteRoute struct {
+	pb.DeleteRouteRequest
+}
+
+type StatusRoute struct {
+	RouteId uint64 `json:"route_id" validate:"required"`
+	Enable  bool   `json:"enable"`
+}

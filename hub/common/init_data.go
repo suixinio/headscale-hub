@@ -580,6 +580,27 @@ func InitData() {
 			Desc:     "删除节点",
 			Creator:  "系统",
 		},
+		{
+			Method:   "GET",
+			Path:     "/headscale/route/list",
+			Category: "headscale",
+			Desc:     "获取路由",
+			Creator:  "系统",
+		},
+		{
+			Method:   "POST",
+			Path:     "/headscale/route/status",
+			Category: "headscale",
+			Desc:     "修改路由启用状态",
+			Creator:  "系统",
+		},
+		{
+			Method:   "DELETE",
+			Path:     "/headscale/route/delete",
+			Category: "headscale",
+			Desc:     "删除路由",
+			Creator:  "系统",
+		},
 	}
 	newApi := make([]model.Api, 0)
 	newRoleCasbin := make([]model.RoleCasbin, 0)

@@ -9,8 +9,7 @@ func InitRouteRoutes(r *gin.RouterGroup) gin.IRoutes {
 	Group := r.Group("/route")
 	controller := hs_controller.NewRouteController()
 	Group.GET("/list", controller.List)
-	Group.GET("/enable", controller.Enable)
-	Group.GET("/disable", controller.Disable)
-	Group.GET("/delete", controller.Delete)
+	Group.POST("/status", controller.EnableStatus)
+	Group.DELETE("/delete", controller.Delete)
 	return r
 }
