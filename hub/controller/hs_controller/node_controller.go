@@ -19,14 +19,16 @@ type INodeController interface {
 }
 
 type NodeController struct {
-	NodeRepository hs_repository.INodeRepository
-	UserRepository repository.IUserRepository
+	NodeRepository   hs_repository.INodeRepository
+	UserRepository   repository.IUserRepository
+	HsUserRepository hs_repository.IUserRepository
 }
 
 func NewNodeController() INodeController {
 	nodeController := NodeController{
-		NodeRepository: hs_repository.NewNodeRepository(),
-		UserRepository: repository.NewUserRepository(),
+		NodeRepository:   hs_repository.NewNodeRepository(),
+		UserRepository:   repository.NewUserRepository(),
+		HsUserRepository: hs_repository.NewUserRepository(),
 	}
 	return nodeController
 }
@@ -71,7 +73,7 @@ func (nc NodeController) Register(c *gin.Context) {
 	}
 	node, err := nc.NodeRepository.RegisterNode(user.Username, req.Key)
 	if err != nil {
-		response.Fail(c, nil, "Register to Node")
+		response.Fail(c, nil, err.Error())
 		return
 	}
 	response.Success(c, gin.H{"node": node}, "success")
@@ -84,7 +86,41 @@ func (nc NodeController) Rename(c *gin.Context) {
 
 // Delete 删除节点
 func (nc NodeController) Delete(c *gin.Context) {
+	var req vo.DeleteNode
+	// 参数绑定
+	if err := c.ShouldBind(&req); err != nil {
+		response.Fail(c, nil, err.Error())
+		return
+	}
+	// 参数校验
+	if err := common.Validate.Struct(&req); err != nil {
+		errStr := err.(validator.ValidationErrors)[0].Translate(common.Trans)
+		response.Fail(c, nil, errStr)
+		return
+	}
+	role, user, err := nc.UserRepository.GetCurrentUserMinRoleSort(c)
+	if err != nil {
+		response.Fail(c, nil, "Delete to Node")
+		return
+	}
+	hsUser, err := nc.HsUserRepository.GetUserByName(user.Username)
+	if err != nil {
+		response.Fail(c, nil, "Delete to Node")
+		return
+	}
+	// 判断当前用户是否有权限
+	if role != 1 {
+		if !nc.NodeRepository.CheckNodeRole(hsUser, req.NodeId) {
+			response.Fail(c, nil, "Delete to Node")
+		}
+	}
 
+	err = nc.NodeRepository.DeleteNode(req.NodeId)
+	if err != nil {
+		response.Fail(c, nil, "Delete to Node")
+		return
+	}
+	response.Success(c, gin.H{}, "success")
 }
 
 // Move

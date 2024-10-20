@@ -553,6 +553,13 @@ func InitData() {
 			Creator:  "系统",
 		},
 		{
+			Method:   "DELETE",
+			Path:     "/headscale/pre_auth_key/expire",
+			Category: "headscale",
+			Desc:     "密钥过期",
+			Creator:  "系统",
+		},
+		{
 			Method:   "GET",
 			Path:     "/headscale/node/list",
 			Category: "headscale",
@@ -564,6 +571,13 @@ func InitData() {
 			Path:     "/headscale/node/register",
 			Category: "headscale",
 			Desc:     "注册节点",
+			Creator:  "系统",
+		},
+		{
+			Method:   "DELETE",
+			Path:     "/headscale/node/delete",
+			Category: "headscale",
+			Desc:     "删除节点",
 			Creator:  "系统",
 		},
 	}

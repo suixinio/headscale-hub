@@ -15,3 +15,11 @@ export function createKey(data) {
   })
 }
 
+export function expireKey(data) {
+  return request({
+    url: '/api/headscale/pre_auth_key/expire',
+    method: 'delete',
+    data
+  })
+}
+

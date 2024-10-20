@@ -6,11 +6,11 @@ import "gorm.io/gorm"
 //
 // At the end of the day, users in Tailscale are some kind of 'bubbles' or users
 // that contain our machines.
-type HsUser struct {
+type User struct {
 	gorm.Model
 	Name string `gorm:"unique"`
 }
 
-func (hs *HsUser) TableName() string {
+func (hs *User) TableName() string {
 	return "users"
 }

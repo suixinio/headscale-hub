@@ -72,15 +72,15 @@ export function formatDuration(seconds) {
   const remainingSeconds = seconds % 60
 
   if (seconds < 60) {
-    return `${remainingSeconds} ${this.$t('datetime.seconds')}`
+    return `${remainingSeconds} 秒}`
   } else if (seconds < 600) {
-    return `${minutes} ${this.$t('datetime.minutes')} ${remainingSeconds} ${this.$t('datetime.seconds')}`
+    return `${minutes} 分 ${remainingSeconds} 秒}`
   } else if (seconds < 36000) {
-    return `${hours} ${this.$t('datetime.hours')} ${minutes} ${this.$t('datetime.minutes')}`
+    return `${hours} 小时 ${minutes} 分}`
   } else if (seconds < 8640000) {
-    return `${days} ${this.$t('datetime.days')} ${hours} ${this.$t('datetime.hours')}`
+    return `${days} 天 ${hours} 小时}`
   } else {
-    return `${days} ${this.$t('datetime.days')}`
+    return `${days} 天`
   }
 }
 
@@ -93,15 +93,15 @@ export function formatAfterDateTime(timestamp = { seconds: 0, nanos: 0 }) {
   const diff = Date.now() - date.valueOf()
   var options
   if (diff <= 60 * 1000) {
-    return `${Math.floor(diff / 1000)} ${this.$t('datetime.seconds')}${this.$t('datetime.ago')}`
+    return `${Math.floor(diff / 1000)} 秒前`
   } else if (diff <= 60 * 60 * 1000) {
     // options = { minute: 'numeric' }
-    return `${Math.floor(diff / (60 * 1000))} ${this.$t('datetime.minutes')}${this.$t('datetime.ago')}`
+    return `${Math.floor(diff / (60 * 1000))} 分前`
   } else if (diff <= 24 * 60 * 60 * 1000) {
     // options = { hour: 'numeric', minute: 'numeric' }
-    return `${Math.floor(diff / (24 * 60 * 1000))} ${this.$t('datetime.hours')}${this.$t('datetime.ago')}`
+    return `${Math.floor(diff / (24 * 60 * 1000))} 小时前}`
   } else if (diff <= 3 * 24 * 60 * 60 * 1000) {
-    return `${Math.floor(diff / (24 * 60 * 60 * 1000))} ${this.$t('datetime.days')}${this.$t('datetime.ago')}`
+    return `${Math.floor(diff / (24 * 60 * 60 * 1000))} 天前}`
   } else {
     options = { year: 'numeric', month: 'long', day: 'numeric' }
   }

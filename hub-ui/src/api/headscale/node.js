@@ -14,3 +14,11 @@ export function registerNode(data) {
     data
   })
 }
+
+export function deleteNode(data) {
+  return request({
+    url: '/api/headscale/node/delete',
+    method: 'delete',
+    data
+  })
+}

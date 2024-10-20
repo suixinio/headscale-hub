@@ -27,11 +27,8 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" align="center" width="120">
           <template slot-scope="scope">
-            <el-tooltip content="编辑" effect="dark" placement="top">
-              <el-button size="mini" icon="el-icon-edit" circle type="primary" @click="update(scope.row)" />
-            </el-tooltip>
             <el-tooltip class="delete-popover" content="删除" effect="dark" placement="top">
-              <el-popconfirm title="确定删除吗？" @onConfirm="singleDelete(scope.row.ID)">
+              <el-popconfirm title="确定删除吗？" @onConfirm="singleDelete(scope.row.id)">
                 <el-button slot="reference" size="mini" icon="el-icon-delete" circle type="danger" />
               </el-popconfirm>
             </el-tooltip>
@@ -47,7 +44,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button size="mini" @click="cancelForm()">取 消</el-button>
-          <el-button size="mini" :loading="submitLoading" type="primary" @click="submitForm()">确 定</el-button>
+          <el-button size="mini" :loading="submitLoading" type="primary" @click="registerNodeBtn()">确 定</el-button>
         </div>
       </el-dialog>
 
@@ -56,7 +53,7 @@
 </template>
 
 <script>
-import { getNodeList, registerNode } from '@/api/headscale/node'
+import { getNodeList, registerNode, deleteNode } from '@/api/headscale/node'
 import { formatAfterDateTime, UtilsDateFormat } from '@/utils/date'
 
 export default {
@@ -105,24 +102,19 @@ export default {
     },
 
     // 提交表单
-    submitForm() {
+    async registerNodeBtn() {
       this.submitLoading = true
-      const { code, message } = registerNode({ key: this.dialogFormData.nodeKey })
-      if (code !== 200) {
+      await registerNode({ key: this.dialogFormData.nodeKey }).then(res => {
+        this.$message({
+          showClose: true,
+          message: '注册成功',
+          type: 'success'
+        })
+      }).finally(() => {
         this.resetForm()
         this.getTableData()
         this.submitLoading = false
-        this.$message.error(message)
-        return
-      }
-      this.resetForm()
-      this.getTableData()
-      this.$message({
-        showClose: true,
-        message: '注册成功',
-        type: 'success'
       })
-      this.submitLoading = false
     },
 
     // 提交表单
@@ -132,7 +124,6 @@ export default {
 
     resetForm() {
       this.dialogFormVisible = false
-      this.$refs['dialogForm'].resetFields()
       this.dialogFormData = {
         nodeKey: ''
       }
@@ -141,19 +132,16 @@ export default {
     // 单个删除
     async singleDelete(Id) {
       this.loading = true
-      // let msg = ''
-      try {
-        // const { message } = await batchDeleteUserByIds({ userIds: [Id] })
-        // msg = message
-      } finally {
-        this.loading = false
-      }
-
-      this.getTableData()
-      this.$message({
-        showClose: true,
-        message: '删除成功',
-        type: 'success'
+      await deleteNode({ node_key: Id }).then(res => {
+        this.$message({
+          showClose: true,
+          message: '删除成功',
+          type: 'success'
+        })
+      }).finally(() => {
+        this.resetForm()
+        this.getTableData()
+        this.submitLoading = false
       })
     }
   }

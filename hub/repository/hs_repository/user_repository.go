@@ -7,7 +7,7 @@ import (
 )
 
 type IUserRepository interface {
-	GetUserByName(name string) (*hsmodel.HsUser, error)
+	GetUserByName(name string) (*hsmodel.User, error)
 }
 
 type UserRepository struct {
@@ -18,8 +18,8 @@ func NewUserRepository() IUserRepository {
 	return UserRepository{}
 }
 
-func (hs UserRepository) GetUserByName(name string) (*hsmodel.HsUser, error) {
-	var firstUser hsmodel.HsUser
+func (hs UserRepository) GetUserByName(name string) (*hsmodel.User, error) {
+	var firstUser hsmodel.User
 	err := common.DB.
 		Where("name = ?", name).
 		First(&firstUser).Error

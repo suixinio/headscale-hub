@@ -1,18 +1,15 @@
 package hs_repository
 
 import (
-	"errors"
-	"github.com/gin-gonic/gin"
+	ccontext "context"
 	pb "github.com/juanfont/headscale/gen/go/headscale/v1"
 	"github.com/suixinio/headscale-hub/common"
-	hsmodel "github.com/suixinio/headscale-hub/model/hs_model"
-
-	"gorm.io/gorm"
+	"golang.org/x/net/context"
 )
 
 type IPolicyRepository interface {
-	GetPolicy() (*hsmodel.Policy, error)
-	SetPolicy(c *gin.Context, content string) error
+	GetPolicy() (string, error)
+	SetPolicy(content string) error
 }
 
 type PolicyRepository struct {
@@ -24,28 +21,17 @@ func NewPolicyRepository() IPolicyRepository {
 }
 
 // GetPolicy returns the latest policy in the database.
-func (hs *PolicyRepository) GetPolicy() (*hsmodel.Policy, error) {
-	var p hsmodel.Policy
-
-	// Query:
-	// SELECT * FROM policies ORDER BY id DESC LIMIT 1;
-	if err := common.DB.
-		Order("id DESC").
-		Limit(1).
-		First(&p).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, hsmodel.ErrPolicyNotFound
-		}
-
-		return nil, err
+func (hs *PolicyRepository) GetPolicy() (string, error) {
+	res, err := common.HeadscaleGRPC.GetPolicy(ccontext.Background(), &pb.GetPolicyRequest{})
+	if err != nil {
+		return "", err
 	}
-
-	return &p, nil
+	return res.Policy, nil
 }
 
 // SetPolicy Updates the ACL Policy.
-func (hs *PolicyRepository) SetPolicy(c *gin.Context, content string) error {
-	_, err := common.HeadscaleGRPC.SetPolicy(c, &pb.SetPolicyRequest{Policy: content})
+func (hs *PolicyRepository) SetPolicy(content string) error {
+	_, err := common.HeadscaleGRPC.SetPolicy(context.Background(), &pb.SetPolicyRequest{Policy: content})
 	if err != nil {
 		return err
 	}

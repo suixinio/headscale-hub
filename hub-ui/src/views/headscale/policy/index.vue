@@ -45,13 +45,11 @@ export default {
       })
     },
     async postData() {
-      const { code, message } = await setACL({ content: this.acl })
-      if (code !== 200) {
-        this.$message.error(message)
-        return
-      }
-      this.$message.success('保存成功')
-      await this.getData()
+      await setACL({ content: this.acl }).then(res => {
+        this.$message.success('保存成功')
+      }).finally(
+        this.getData()
+      )
     },
     async getData() {
       const { code, data, message } = await getACL()

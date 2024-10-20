@@ -13,3 +13,11 @@ type RegisterNode struct {
 type CreatePreAuthKey struct {
 	pb.CreatePreAuthKeyRequest
 }
+
+type ExpirePreAuthKey struct {
+	pb.ExpirePreAuthKeyRequest
+}
+
+type DeleteNode struct {
+	pb.DeleteNodeRequest
+}

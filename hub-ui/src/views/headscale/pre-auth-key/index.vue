@@ -36,11 +36,8 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" align="center" width="120">
           <template slot-scope="scope">
-            <el-tooltip content="编辑" effect="dark" placement="top">
-              <el-button size="mini" icon="el-icon-edit" circle type="primary" @click="update(scope.row)" />
-            </el-tooltip>
-            <el-tooltip class="delete-popover" content="删除" effect="dark" placement="top">
-              <el-popconfirm title="确定删除吗？" @onConfirm="singleDelete(scope.row.ID)">
+            <el-tooltip class="delete-popover" content="过期" effect="dark" placement="top">
+              <el-popconfirm title="确定过此期key吗？" @onConfirm="singleDelete(scope.row.key)">
                 <el-button slot="reference" size="mini" icon="el-icon-delete" circle type="danger" />
               </el-popconfirm>
             </el-tooltip>
@@ -77,7 +74,7 @@
 </template>
 
 <script>
-import { getKeys, createKey } from '@/api/headscale/keys'
+import { getKeys, createKey, expireKey } from '@/api/headscale/keys'
 import { UtilsDateFormat } from '@/utils/date'
 
 export default {
@@ -143,28 +140,23 @@ export default {
     },
 
     // 提交表单
-    submitForm() {
+    async submitForm() {
       this.submitLoading = true
       const date = new Date(this.dialogFormData.expireDate)
       const seconds = Math.floor(date.getTime() / 1000)
       this.dialogFormData.expiration.seconds = seconds
       this.dialogFormData.expiration.nanos = 0
-      const { code, message } = createKey(this.dialogFormData)
-      if (code !== 200) {
+      await createKey(this.dialogFormData).then(res => {
+        this.$message({
+          showClose: true,
+          message: '创建成功',
+          type: 'success'
+        })
+      }).finally(() => {
         this.resetForm()
         this.getTableData()
         this.submitLoading = false
-        this.$message.error(message)
-        return
-      }
-      this.$message({
-        showClose: true,
-        message: '创建成功',
-        type: 'success'
       })
-      this.submitLoading = false
-      this.resetForm()
-      this.getTableData()
     },
 
     // 提交表单
@@ -187,21 +179,18 @@ export default {
     },
 
     // 单个删除
-    async singleDelete(Id) {
+    async singleDelete(key) {
       this.loading = true
-      const msg = ''
-      try {
-        // const { message } = await batchDeleteUserByIds({ userIds: [Id] })
-        // msg = message
-      } finally {
-        this.loading = false
-      }
-
-      this.getTableData()
-      this.$message({
-        showClose: true,
-        message: msg,
-        type: 'success'
+      await expireKey({ key: key }).then(res => {
+        this.$message({
+          showClose: true,
+          message: '成功',
+          type: 'success'
+        })
+      }).finally(() => {
+        this.resetForm()
+        this.getTableData()
+        this.submitLoading = false
       })
     }
   }

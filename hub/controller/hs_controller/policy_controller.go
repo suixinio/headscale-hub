@@ -26,12 +26,12 @@ func NewPolicyController() IPolicyController {
 
 // GetAcl 获取acl
 func (pc PolicyController) GetAcl(c *gin.Context) {
-	policyM, err := pc.PolicyRepository.GetPolicy()
+	policy, err := pc.PolicyRepository.GetPolicy()
 	if err != nil {
 		response.Fail(c, nil, err.Error())
 		return
 	}
-	response.Success(c, gin.H{"data": policyM.Data}, "success")
+	response.Success(c, gin.H{"data": policy}, "success")
 }
 
 // SetAcl 设置acl
@@ -49,7 +49,7 @@ func (pc PolicyController) SetAcl(c *gin.Context) {
 		return
 	}
 	// 获取
-	if err := pc.PolicyRepository.SetPolicy(c, req.Content); err != nil {
+	if err := pc.PolicyRepository.SetPolicy(req.Content); err != nil {
 		response.Fail(c, nil, err.Error())
 		return
 	}

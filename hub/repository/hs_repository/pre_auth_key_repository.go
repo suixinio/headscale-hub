@@ -9,6 +9,7 @@ import (
 type IPreAuthKeyRepository interface {
 	ListPreAuthKeys(user string) ([]*pb.PreAuthKey, error)
 	CreatePreAuthKey(request *pb.CreatePreAuthKeyRequest) (*pb.PreAuthKey, error)
+	ExpirePreAuthKey(request *pb.ExpirePreAuthKeyRequest) (*pb.ExpirePreAuthKeyResponse, error)
 }
 
 type PreAuthKeyRepository struct {
@@ -33,4 +34,12 @@ func (pr *PreAuthKeyRepository) CreatePreAuthKey(request *pb.CreatePreAuthKeyReq
 		return nil, err
 	}
 	return resp.PreAuthKey, nil
+}
+
+func (pr *PreAuthKeyRepository) ExpirePreAuthKey(request *pb.ExpirePreAuthKeyRequest) (*pb.ExpirePreAuthKeyResponse, error) {
+	resp, err := common.HeadscaleGRPC.ExpirePreAuthKey(context.Background(), request)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
