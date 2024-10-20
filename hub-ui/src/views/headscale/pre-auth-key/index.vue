@@ -20,7 +20,7 @@
         <el-table-column show-overflow-tooltip prop="ephemeral" label="短暂的" align="center">
           <template slot="header">
             <el-tooltip content="当设备离线时，自动将其从尾网中删除" placement="top">
-              <span>密钥<i class="el-icon-question" /></span>
+              <span>短暂的<i class="el-icon-question" /></span>
             </el-tooltip>
           </template>
           <template v-slot="scope">
@@ -51,7 +51,7 @@
         <el-form ref="dialogForm" size="small" :model="dialogFormData" label-width="100px">
           <el-form-item label="过期时间">
             <el-date-picker
-              v-model="dialogFormData.expire"
+              v-model="dialogFormData.expireDate"
               type="datetime"
               :picker-options="pickerOptions"
               placeholder="选择时间"
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { getKeys } from '@/api/headscale/keys'
+import { getKeys, createKey } from '@/api/headscale/keys'
 import { UtilsDateFormat } from '@/utils/date'
 
 export default {
@@ -92,8 +92,12 @@ export default {
       submitLoading: false,
       dialogFormVisible: false,
       dialogFormData: {
-        expire: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).toISOString(),
+        expireDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).toISOString(),
         reusable: false,
+        expiration: {
+          seconds: 0,
+          nanos: 0
+        },
         ephemeral: false
       },
       pickerOptions: {
@@ -141,7 +145,23 @@ export default {
     // 提交表单
     submitForm() {
       this.submitLoading = true
-
+      const date = new Date(this.dialogFormData.expireDate)
+      const seconds = Math.floor(date.getTime() / 1000)
+      this.dialogFormData.expiration.seconds = seconds
+      this.dialogFormData.expiration.nanos = 0
+      const { code, message } = createKey(this.dialogFormData)
+      if (code !== 200) {
+        this.resetForm()
+        this.getTableData()
+        this.submitLoading = false
+        this.$message.error(message)
+        return
+      }
+      this.$message({
+        showClose: true,
+        message: '创建成功',
+        type: 'success'
+      })
       this.submitLoading = false
       this.resetForm()
       this.getTableData()
@@ -156,7 +176,11 @@ export default {
       this.dialogFormVisible = false
       const today = new Date() // 获取当前时间
       this.dialogFormData = {
-        expire: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).toISOString(),
+        expireDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).toISOString(),
+        expiration: {
+          seconds: 0,
+          nanos: 0
+        },
         reusable: false,
         ephemeral: false
       }

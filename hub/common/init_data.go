@@ -545,6 +545,27 @@ func InitData() {
 			Desc:     "获取密钥列表",
 			Creator:  "系统",
 		},
+		{
+			Method:   "POST",
+			Path:     "/headscale/pre_auth_key/create",
+			Category: "headscale",
+			Desc:     "创建密钥",
+			Creator:  "系统",
+		},
+		{
+			Method:   "GET",
+			Path:     "/headscale/node/list",
+			Category: "headscale",
+			Desc:     "获取节点列表",
+			Creator:  "系统",
+		},
+		{
+			Method:   "POST",
+			Path:     "/headscale/node/register",
+			Category: "headscale",
+			Desc:     "注册节点",
+			Creator:  "系统",
+		},
 	}
 	newApi := make([]model.Api, 0)
 	newRoleCasbin := make([]model.RoleCasbin, 0)

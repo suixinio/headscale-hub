@@ -1,11 +1,13 @@
 package hs_controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
+	"github.com/suixinio/headscale-hub/common"
 	"github.com/suixinio/headscale-hub/repository"
 	"github.com/suixinio/headscale-hub/repository/hs_repository"
 	"github.com/suixinio/headscale-hub/response"
+	"github.com/suixinio/headscale-hub/vo"
 )
 
 type IPreAuthKeyController interface {
@@ -38,7 +40,6 @@ func (pc PreAuthKeyController) List(c *gin.Context) {
 	}
 	keys, err := pc.PreAuthKeyRepository.ListPreAuthKeys(user.Username)
 	if err != nil && err.Error() != "rpc error: code = Unknown desc = User not found" {
-		fmt.Println(err)
 		response.Fail(c, nil, "Failed to get Nodes")
 		return
 	}
@@ -47,6 +48,31 @@ func (pc PreAuthKeyController) List(c *gin.Context) {
 
 // Create 创建密钥
 func (pc PreAuthKeyController) Create(c *gin.Context) {
+	var req vo.CreatePreAuthKey
+	// 参数绑定
+	if err := c.ShouldBind(&req); err != nil {
+		response.Fail(c, nil, err.Error())
+		return
+	}
+	// 参数校验
+	if err := common.Validate.Struct(&req); err != nil {
+		errStr := err.(validator.ValidationErrors)[0].Translate(common.Trans)
+		response.Fail(c, nil, errStr)
+		return
+	}
+	user, err := pc.UserRepository.GetCurrentUser(c)
+	if err != nil {
+		response.Fail(c, nil, "Register to Node")
+		return
+	}
+	req.User = user.Username
+	req.AclTags = []string{}
+	key, err := pc.PreAuthKeyRepository.CreatePreAuthKey(&req.CreatePreAuthKeyRequest)
+	if err != nil {
+		response.Fail(c, nil, "Failed to create key")
+		return
+	}
+	response.Success(c, gin.H{"key": key}, "success")
 }
 
 // Expire 密钥过期

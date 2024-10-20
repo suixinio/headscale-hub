@@ -8,7 +8,7 @@ import (
 
 type IPreAuthKeyRepository interface {
 	ListPreAuthKeys(user string) ([]*pb.PreAuthKey, error)
-	//RegisterNode(user string, key string) (*pb.Node, error)
+	CreatePreAuthKey(request *pb.CreatePreAuthKeyRequest) (*pb.PreAuthKey, error)
 }
 
 type PreAuthKeyRepository struct {
@@ -25,4 +25,12 @@ func (pr *PreAuthKeyRepository) ListPreAuthKeys(user string) ([]*pb.PreAuthKey, 
 		return nil, err
 	}
 	return keys.PreAuthKeys, nil
+}
+
+func (pr *PreAuthKeyRepository) CreatePreAuthKey(request *pb.CreatePreAuthKeyRequest) (*pb.PreAuthKey, error) {
+	resp, err := common.HeadscaleGRPC.CreatePreAuthKey(context.Background(), request)
+	if err != nil {
+		return nil, err
+	}
+	return resp.PreAuthKey, nil
 }

@@ -7,3 +7,11 @@ export function getKeys() {
   })
 }
 
+export function createKey(data) {
+  return request({
+    url: '/api/headscale/pre_auth_key/create',
+    method: 'post',
+    data
+  })
+}
+
