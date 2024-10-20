@@ -34,7 +34,7 @@ func NewRouteController() IRouteController {
 // List 获取所有路由
 func (rc RouteController) List(c *gin.Context) {
 	routes, err := rc.RouteRepository.ListRoutes()
-	if err != nil {
+	if err != nil && err.Error() != "rpc error: code = Unknown desc = loading ACL from database: acl policy not found" {
 		response.Fail(c, nil, "Failed to get Routes")
 		return
 	}

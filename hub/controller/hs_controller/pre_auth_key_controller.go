@@ -39,7 +39,7 @@ func (pc PreAuthKeyController) List(c *gin.Context) {
 		return
 	}
 	keys, err := pc.PreAuthKeyRepository.ListPreAuthKeys(user.Username)
-	if err != nil {
+	if err != nil && err.Error() != "rpc error: code = Unknown desc = user not found" {
 		response.Fail(c, nil, err.Error())
 		return
 	}

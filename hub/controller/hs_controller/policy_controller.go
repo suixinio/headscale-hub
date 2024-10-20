@@ -27,7 +27,7 @@ func NewPolicyController() IPolicyController {
 // GetAcl 获取acl
 func (pc PolicyController) GetAcl(c *gin.Context) {
 	policy, err := pc.PolicyRepository.GetPolicy()
-	if err != nil {
+	if err != nil && err.Error() != "rpc error: code = Unknown desc = loading ACL from database: acl policy not found" {
 		response.Fail(c, nil, err.Error())
 		return
 	}
