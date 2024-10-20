@@ -16,6 +16,31 @@ services:
     depends_on:
       - postgres
 
+  headscale-hub:
+    image: headscale-hub
+    container_name: headscale-hub
+    restart: always
+    build:
+      context: ./hub/
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./hub:/hub
+    command: ["headscale-hub", "-c", "/hub/config.yml" ]
+    depends_on:
+      - postgres
+
+  headscale-ui:
+    image: headscale-hub-ui
+    container_name: headscale-hub-ui
+    restart: always
+    build:
+      context: ./hub-ui
+      dockerfile: Dockerfile
+    ports:
+      - "8089:80"
+
   # sqlite-web:
   #   image: coleifer/sqlite-web
   #   container_name: sqlite-web
@@ -27,12 +52,12 @@ services:
   #     - SQLITE_DATABASE=db.sqlite
 
   postgres:
-    image: postgres
-    restart: unless-stopped
+    image: postgres:13.16
+    container_name: postgres
+    restart: always
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: headscale
       POSTGRES_PASSWORD: headscale
       POSTGRES_DB: headscale
-

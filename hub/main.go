@@ -48,7 +48,7 @@ func main() {
 	// 注册所有路由
 	r := routes.InitRoutes()
 
-	host := "localhost"
+	host := config.Conf.System.Host
 	port := config.Conf.System.Port
 
 	srv := &http.Server{

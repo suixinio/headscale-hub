@@ -5,6 +5,7 @@ system:
   # url前缀
   url-path-prefix: api
   # 程序监听端口
+  host: 0.0.0.0
   port: 8088
   # 是否初始化数据(没有初始数据时使用, 已发布正式版改为false)
   init-data: true
@@ -36,7 +37,7 @@ database:
     path: ./db.sqlite
     write_ahead_log: true
   postgres:
-    host: localhost
+    host: 10.8.0.213
     port: 5432
     name: headscale
     user: headscale

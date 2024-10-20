@@ -1,4 +1,4 @@
-FROM node:20.18.0-bullseye as builder
+FROM node:20.18.0-bullseye AS builder
 WORKDIR /hub-ui/
 COPY ./package-lock.json ./package-lock.json
 COPY ./package.json ./package.json
