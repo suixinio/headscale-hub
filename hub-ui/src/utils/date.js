@@ -99,9 +99,9 @@ export function formatAfterDateTime(timestamp = { seconds: 0, nanos: 0 }) {
     return `${Math.floor(diff / (60 * 1000))} 分前`
   } else if (diff <= 24 * 60 * 60 * 1000) {
     // options = { hour: 'numeric', minute: 'numeric' }
-    return `${Math.floor(diff / (24 * 60 * 1000))} 小时前}`
+    return `${Math.floor(diff / (24 * 60 * 1000))} 小时前`
   } else if (diff <= 3 * 24 * 60 * 60 * 1000) {
-    return `${Math.floor(diff / (24 * 60 * 60 * 1000))} 天前}`
+    return `${Math.floor(diff / (24 * 60 * 60 * 1000))} 天前`
   } else {
     options = { year: 'numeric', month: 'long', day: 'numeric' }
   }

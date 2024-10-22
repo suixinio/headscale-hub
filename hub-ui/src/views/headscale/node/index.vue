@@ -132,7 +132,7 @@ export default {
     // 单个删除
     async singleDelete(Id) {
       this.loading = true
-      await deleteNode({ node_key: Id }).then(res => {
+      await deleteNode({ node_id: Id }).then(res => {
         this.$message({
           showClose: true,
           message: '删除成功',
