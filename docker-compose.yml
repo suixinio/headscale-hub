@@ -61,3 +61,5 @@ services:
       POSTGRES_USER: headscale
       POSTGRES_PASSWORD: headscale
       POSTGRES_DB: headscale
+    volumes:
+      - ./data:/var/lib/postgresql/data

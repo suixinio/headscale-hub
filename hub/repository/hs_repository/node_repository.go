@@ -12,6 +12,7 @@ type INodeRepository interface {
 	RegisterNode(user string, key string) (*pb.Node, error)
 	DeleteNode(nodeId uint64) error
 	CheckNodeRole(user *hs_model.User, nodeId uint64) bool
+	RenameNode(nodeId uint64, name string) error
 }
 
 type NodeRepository struct {
@@ -54,4 +55,12 @@ func (nr *NodeRepository) CheckNodeRole(user *hs_model.User, nodeId uint64) bool
 		return false
 	}
 	return true
+}
+
+func (nr *NodeRepository) RenameNode(nodeId uint64, name string) error {
+	_, err := common.HeadscaleGRPC.RenameNode(context.Background(), &pb.RenameNodeRequest{
+		NodeId:  nodeId,
+		NewName: name,
+	})
+	return err
 }
