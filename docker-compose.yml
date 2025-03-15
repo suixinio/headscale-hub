@@ -1,6 +1,6 @@
 services:
   headscale:
-    image: headscale/headscale:0.23.0
+    image: registry.cn-qingdao.aliyuncs.com/ohmymc/headscale:0.23.0
     container_name: headscale
     restart: always
     ports:
@@ -17,12 +17,9 @@ services:
       - postgres
 
   headscale-hub:
-    image: headscale-hub
+    image: registry.cn-qingdao.aliyuncs.com/ohmymc/headscale-hub:0.1.0
     container_name: headscale-hub
     restart: always
-    build:
-      context: ./hub/
-      dockerfile: Dockerfile
     ports:
       - "8088:8088"
     volumes:
@@ -32,7 +29,6 @@ services:
       - postgres
 
   headscale-ui:
-    image: headscale-hub-ui
     container_name: headscale-hub-ui
     restart: always
     build:
@@ -52,7 +48,7 @@ services:
   #     - SQLITE_DATABASE=db.sqlite
 
   postgres:
-    image: postgres:13.16
+    image: registry.cn-qingdao.aliyuncs.com/ohmymc/postgres:13.16
     container_name: postgres
     restart: always
     ports:
